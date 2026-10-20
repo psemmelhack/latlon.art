@@ -1,0 +1,57 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE_DESCRIPTION, originOf, siteGraph } from "../lib/archive.ts";
+import { loadRecords } from "../lib/records.ts";
+
+const records = await loadRecords();
+const site = originOf(Astro.site);
+const allDrafts = records.length > 0 && records.every((record) => record.draft);
+---
+
+<Base
+  title="latlon.art"
+  description={SITE_DESCRIPTION}
+  robots={allDrafts ? "noindex" : undefined}
+  jsonLd={siteGraph(records, site)}
+>
+  <h1>latlon.art</h1>
+  <p class="line">{SITE_DESCRIPTION}</p>
+  {
+    allDrafts && (
+      <p class="quiet">Draft, pending Petrus’s review.</p>
+    )
+  }
+  <p class="quiet"><a href="/map">Map</a></p>
+  <p class="quiet apart"><a href="/agents">Built for humans and robots.</a></p>
+  {
+    records.length === 0 ? (
+      <p class="list">No transients yet.</p>
+    ) : (
+      <section class="list" aria-label="Transients">
+        {records.map((record) => (
+          <article>
+            <h2>
+              <a href={record.href}>{record.heading}</a>
+            </h2>
+            {record.subtitle && <p>{record.subtitle}</p>}
+            {record.coordLine && <p translate="no">{record.coordLine}</p>}
+            {record.hidden && <p class="quiet">Coordinates withheld</p>}
+            {!record.hidden && !record.coordLine && <p class="quiet">No coordinates recorded</p>}
+            {record.utc && (
+              <p translate="no">
+                <time datetime={record.utc}>{record.utc}</time>
+              </p>
+            )}
+            {record.localLine && (
+              <p class="quiet" translate="no">
+                {record.localLine}
+              </p>
+            )}
+            {record.place && <p class="quiet">{record.place}</p>}
+            {record.draft && <p class="quiet">Draft</p>}
+          </article>
+        ))}
+      </section>
+    )
+  }
+</Base>

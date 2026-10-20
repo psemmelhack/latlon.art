@@ -1,0 +1,81 @@
+---
+import { jsonLd } from "../lib/archive.ts";
+
+interface Props {
+  title: string;
+  description: string;
+  robots?: string;
+  jsonLd?: unknown;
+}
+
+const { title, description, robots, jsonLd: data } = Astro.props;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const structured = data ? jsonLd(data) : "";
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    {robots && <meta name="robots" content={robots} />}
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/json" href="/transients.json" title="Transient index" />
+    <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <style is:global>
+      * { box-sizing: border-box; }
+      html { -webkit-text-size-adjust: 100%; }
+      body {
+        margin: 0;
+        color: #000;
+        background: #fff;
+        font: 17px/1.7 ui-monospace, Menlo, Consolas, "DejaVu Sans Mono", monospace;
+      }
+      main { max-width: 58rem; margin: 0 auto; padding: 30vh 1.5rem 6rem; overflow-wrap: anywhere; }
+      h1 { font-size: 1.25rem; font-weight: bold; margin: 0 0 1.2rem; }
+      h2 { font-size: 1rem; font-weight: bold; margin: 0 0 0.4rem; }
+      p { margin: 0; }
+      .line { margin: 0 0 3lh; }
+      a { color: #000; text-underline-offset: 3px; }
+      .label {
+        font-size: 0.8rem;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #555;
+        margin: 0 0 0.5rem;
+      }
+      .quiet { margin: 0.9rem 0 0; font-size: 0.85rem; color: #555; }
+      .quiet a { color: #555; }
+      .quiet.apart { margin-top: 4.8rem; }
+      .list { display: grid; gap: 4.8rem; margin-top: 6rem; }
+      .list article p { margin-top: 0.15rem; }
+      .block { margin-top: 2.4rem; }
+      .prose { margin-top: 3rem; max-width: 36rem; }
+      .prose p { margin: 0 0 1rem; }
+      figure { margin: 2.4rem 0 0; }
+      img { max-width: 100%; height: auto; display: block; }
+      figcaption { margin-top: 0.4rem; font-size: 0.85rem; color: #555; }
+      footer {
+        max-width: 58rem;
+        margin: 0 auto;
+        padding: 0 1.5rem 4rem;
+        font-size: 0.85rem;
+        color: #555;
+      }
+      footer a { color: #555; }
+      @media (min-width: 760px) {
+        body { font-size: 18px; }
+      }
+    </style>
+    {structured && <script type="application/ld+json" is:inline set:html={structured} />}
+  </head>
+  <body>
+    <main>
+      <slot />
+    </main>
+    <footer>— Peter Semmelhack · <a href="https://psem.me/">psem.me</a></footer>
+  </body>
+</html>

@@ -1,0 +1,127 @@
+---
+import { getEntry, render } from "astro:content";
+import Base from "../../layouts/Base.astro";
+import { originOf, recordGraph } from "../../lib/archive.ts";
+import { summarize } from "../../lib/present.ts";
+import { loadRecords } from "../../lib/records.ts";
+import type { PublicRecord } from "../../lib/types.ts";
+
+export async function getStaticPaths() {
+  const records = await loadRecords();
+  return records.map((record) => ({
+    params: { slug: record.id },
+    props: { record },
+  }));
+}
+
+interface Props {
+  record: PublicRecord;
+}
+
+const { record } = Astro.props;
+const entry = await getEntry("transients", record.id);
+if (!entry) throw new Error(`Missing transient entry ${record.id}`);
+const { Content } = await render(entry);
+const description = summarize(record, entry.body);
+const site = originOf(Astro.site);
+const onMap = record.lat != null && record.lon != null;
+---
+
+<Base
+  title={`${record.heading} — latlon.art`}
+  description={description}
+  robots={record.draft ? "noindex" : undefined}
+  jsonLd={recordGraph(record, site, description)}
+>
+  <p><a href="/">latlon.art</a></p>
+  <h1>{record.heading}</h1>
+  {record.subtitle && <p>{record.subtitle}</p>}
+  {record.draft && <p class="quiet">Draft, pending Petrus’s review.</p>}
+
+  <div class="block">
+    <p class="label">{record.tid ? "TID" : "TID incomplete"}</p>
+    {record.tidPartial && <p translate="no">{record.tidPartial}</p>}
+  </div>
+
+  <div class="block" translate="no">
+    <p class="label">Latitude</p>
+    <p class:list={[{ quiet: !record.latText }]}>{record.latText ?? (record.hidden ? "Coordinates withheld" : "Not recorded")}</p>
+  </div>
+  <div class="block" translate="no">
+    <p class="label">Longitude</p>
+    <p class:list={[{ quiet: !record.lonText }]}>{record.lonText ?? (record.hidden ? "Coordinates withheld" : "Not recorded")}</p>
+  </div>
+  <div class="block" translate="no">
+    <p class="label">Altitude</p>
+    <p class:list={[{ quiet: !record.altitudeText }]}>{record.altitudeText ?? "Not recorded"}</p>
+  </div>
+  <div class="block" translate="no">
+    <p class="label">UTC</p>
+    {
+      record.utc ? (
+        <p>
+          <time datetime={record.utc}>{record.utc}</time>
+        </p>
+      ) : (
+        <p class="quiet">Not recorded</p>
+      )
+    }
+  </div>
+
+  {
+    record.localLine && (
+      <p class="block" translate="no">
+        {record.localLine}
+      </p>
+    )
+  }
+  {
+    record.recordedLocal && (
+      <p class="quiet" translate="no">
+        As recorded {record.recordedLocal}
+      </p>
+    )
+  }
+  {record.place && <p class="block">{record.place}</p>}
+  {record.medium && <p class="quiet">{record.medium}</p>}
+  {
+    record.source && (
+      <p class="quiet">
+        <a href={record.source}>Source</a>
+      </p>
+    )
+  }
+  <p class="quiet" translate="no">
+    <a href={record.href}>{record.href}</a>
+  </p>
+  {
+    onMap && (
+      <p class="quiet">
+        <a href={`/map#${record.id}`}>Map</a>
+      </p>
+    )
+  }
+
+  {
+    entry.body?.trim() && (
+      <div class="prose">
+        <Content />
+      </div>
+    )
+  }
+  {
+    record.images.map((image) => (
+      <figure>
+        <img
+          src={image.src}
+          alt={image.alt}
+          width={image.width}
+          height={image.height}
+          loading="lazy"
+          decoding="async"
+        />
+        {image.caption && <figcaption>{image.caption}</figcaption>}
+      </figure>
+    ))
+  }
+</Base>

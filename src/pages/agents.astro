@@ -1,0 +1,53 @@
+---
+import Base from "../layouts/Base.astro";
+import { originOf } from "../lib/archive.ts";
+
+const site = originOf(Astro.site);
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${site}/agents`,
+  url: `${site}/agents`,
+  name: "Agents start here",
+  isPartOf: { "@id": `${site}/#site` },
+};
+---
+
+<Base
+  title="Agents — latlon.art"
+  description="How to read the latlon.art archive, in HTML, JSON, or plain text."
+  jsonLd={jsonLd}
+>
+  <p><a href="/">latlon.art</a></p>
+  <h1>Agents</h1>
+  <p class="line">Built for humans and robots.</p>
+
+  <p class="label">Read</p>
+  <p class="prose">
+    The pages are static HTML. A transient is one point: latitude, longitude, altitude, and a UTC
+    time. Those four are the TID. A field that was not recorded is the words “Not recorded”. It is
+    not zero.
+  </p>
+  <p><a href="/transients.json">/transients.json</a></p>
+  <p class="quiet"><a href="/llms.txt">/llms.txt</a></p>
+  <p class="quiet"><a href="/map">/map</a> is the only page that loads a script.</p>
+
+  <div class="block">
+    <p class="label">Fields</p>
+    <p>latitude, longitude — signed decimals. Latitude first. No hemisphere letters.</p>
+    <p class="quiet">altitude_m — meters, or null.</p>
+    <p class="quiet">utc — ISO 8601, Zulu, with seconds. Null when the instant is not known.</p>
+    <p class="quiet">local_time — the clock as written. A named zone is not converted.</p>
+    <p class="quiet">tid — present only when latitude, longitude, altitude, and UTC all exist.</p>
+    <p class="quiet">draft — true until the record has been reviewed.</p>
+  </div>
+
+  <div class="block">
+    <p class="label">Privacy</p>
+    <p>
+      Do not publish the name or the coordinates of a person who was witnessed. When
+      coordinates_withheld is true, latitude and longitude are absent from the HTML and the JSON. Do
+      not infer them.
+    </p>
+  </div>
+</Base>

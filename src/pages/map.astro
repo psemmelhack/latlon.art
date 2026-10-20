@@ -1,0 +1,54 @@
+---
+import Map from "../components/Map.astro";
+import Base from "../layouts/Base.astro";
+import { originOf } from "../lib/archive.ts";
+import { toMapPoint } from "../lib/present.ts";
+import { loadRecords } from "../lib/records.ts";
+
+const records = await loadRecords();
+const points = records.flatMap((record) => {
+  const point = toMapPoint(record);
+  return point ? [point] : [];
+});
+const site = originOf(Astro.site);
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${site}/map`,
+  url: `${site}/map`,
+  name: "Map",
+  isPartOf: { "@id": `${site}/#site` },
+};
+---
+
+<Base title="Map — latlon.art" description="Transients that have coordinates." jsonLd={jsonLd}>
+  <p><a href="/">latlon.art</a></p>
+  <h1>Map</h1>
+  <p class="line">
+    {points.length === 0 ? "No coordinates recorded." : "Coordinates, as dots."}
+  </p>
+  {
+    records.length === 0 ? (
+      <p>No transients yet.</p>
+    ) : (
+      <section class="list" aria-label="Transients">
+        {records.map((record) => (
+          <article id={record.id}>
+            <h2>
+              <a href={record.href}>{record.heading}</a>
+            </h2>
+            {record.coordLine && <p translate="no">{record.coordLine}</p>}
+            {record.hidden && <p class="quiet">Coordinates withheld</p>}
+            {!record.hidden && !record.coordLine && <p class="quiet">No coordinates recorded</p>}
+            {record.utc && (
+              <p translate="no">
+                <time datetime={record.utc}>{record.utc}</time>
+              </p>
+            )}
+          </article>
+        ))}
+      </section>
+    )
+  }
+  {points.length > 0 && <Map points={points} />}
+</Base>

@@ -1,0 +1,42 @@
+---
+import type { MapPoint } from "../lib/types.ts";
+
+interface Props {
+  points: MapPoint[];
+}
+
+const { points } = Astro.props;
+const payload = JSON.stringify(
+  points.map((point) => ({
+    slug: point.slug,
+    title: point.title,
+    href: point.href,
+    lat: point.lat,
+    lon: point.lon,
+  })),
+);
+---
+
+<p class="quiet" data-map-status hidden>The map did not load. The list is the record.</p>
+<div class="map" data-map data-points={payload} hidden role="region" aria-label="Map"></div>
+
+<style>
+  .map { height: 22rem; margin-top: 4.8rem; background: #eee; }
+  :global(.dot) {
+    display: block;
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #111;
+  }
+  :global(.maplibregl-ctrl-attrib) {
+    font: 11px/1.4 ui-monospace, Menlo, Consolas, "DejaVu Sans Mono", monospace;
+    background: rgba(255, 255, 255, 0.88);
+  }
+</style>
+
+<script>
+  import { mountMap } from "../scripts/map.ts";
+  const el = document.querySelector<HTMLElement>("[data-map]");
+  if (el) mountMap(el);
+</script>
