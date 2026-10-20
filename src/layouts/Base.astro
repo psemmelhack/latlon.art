@@ -22,7 +22,7 @@ const DEFAULT_IMAGE = {
   height: 630,
 };
 
-const { title, description, robots, jsonLd: data, shareTitle, shareDescription, ogType = "website", image } = Astro.props;
+const { title, description, robots = "noindex", jsonLd: data, shareTitle, shareDescription, ogType = "website", image } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
 const share = image ?? DEFAULT_IMAGE;
 const shareImage = new URL(share.src, Astro.site).href;
