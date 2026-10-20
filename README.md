@@ -122,6 +122,7 @@ images:
 | `paris-2023.md` | `48.856603`, `2.342002`. `SEPT 14 2023 07:31PM`. Paris. No zone, so no UTC. |
 | `central-park-2021.md` | `40.778451`, `-73.971842`. Screen time `2021-03-14T14:26:14-04:00`, UTC `2021-03-14T18:26:14Z`. Place from the Measurement post. Altitude not copied. |
 | `creation-proofs-2.md` | `2022-02-22T19:22:22Z`, confirmed. No coordinates. |
+| `redondo-beach-2026.md` | `33.8344`, `-118.3832`, read from the tag. Time from chat, about 2:46 PM PDT on 2026-10-20, so it is approximate and UTC is left out. No altitude. Photo had no EXIF time or GPS. |
 
 Delete a draft, or set `draft: false`, when it has been reviewed. While every record is a draft, the home page is also kept out of search indexes.
 
