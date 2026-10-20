@@ -78,13 +78,12 @@ export function toMapPoint(record: PublicRecord): MapPoint | null {
 }
 
 export function summarize(record: PublicRecord, body: string | undefined): string {
-  const lead = record.draft ? "Draft, pending Petrus's review. " : "";
   const text = plain(body);
   const point = [record.coordLine, record.altitudeText, record.utc, record.localLine, record.place]
     .filter((part): part is string => Boolean(part))
     .join(", ");
   const core = text || point || record.heading;
-  return clip(`${lead}${core}`, 200);
+  return clip(core, 200);
 }
 
 function headingFor(input: TransientInput): { heading: string; subtitle: string | null } {

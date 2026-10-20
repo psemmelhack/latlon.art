@@ -124,7 +124,7 @@ test("draft files match the published sources and stay unmarked as guesses", () 
   ].join("\n");
   assert.doesNotMatch(sources, /i see you/i);
   assert.match(readme, /2022-02-22T19:22:22Z/);
-  assert.match(readme, /Draft, pending Petrus/);
+  assert.doesNotMatch(sources, /Draft, pending Petrus/);
   assert.equal(readFileSync("public/CNAME", "utf8").trim(), "latlon.art");
   readFileSync("public/.nojekyll");
   const workflow = readFileSync(".github/workflows/pages.yml", "utf8");

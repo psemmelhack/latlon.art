@@ -6,7 +6,7 @@ A transient is a measurement in spacetime: latitude, longitude, altitude, and a 
 
 The site is a set of Markdown files. After `npm run build` it is static HTML in `dist/`, ready for Vercel or any other static host.
 
-The four records in the repo are drafts. Each page says **Draft, pending Petrus’s review.** They are taken from posts on psem.me. Empty fields were not in the source and were not invented. Coordinates that appear only in a photograph are copied from that photograph. Local times are not converted to UTC unless the offset is numeric, or Petrus has confirmed the conversion.
+The records in the repo are drafts (`draft: true`). No draft notice is shown on the pages; the flag only keeps them out of search indexes. They are taken from posts on psem.me. Empty fields were not in the source and were not invented. Coordinates that appear only in a photograph are copied from that photograph. Local times are not converted to UTC unless the offset is numeric, or Petrus has confirmed the conversion.
 
 ## Run it locally
 
@@ -31,7 +31,7 @@ npm run preview
 1. Create `src/content/transients/some-name.md`. The filename is the URL: `/t/some-name`. It does not change when you fill in a missing field.
 2. Quote latitude, longitude, UTC, and any other text that contains a colon.
 3. Leave unknown fields out. Do not write `0` for an altitude you do not have, and do not invent a time zone.
-4. Set `draft: false` only when the record is ready to be public. A draft is labeled on the page and kept out of search indexes.
+4. Set `draft: false` only when the record is ready to be public. A draft is kept out of search indexes. It is not labeled on the page.
 5. Run `npm run build`. A bad coordinate, a bad UTC value, or a latitude without a longitude fails the build.
 
 ```yaml

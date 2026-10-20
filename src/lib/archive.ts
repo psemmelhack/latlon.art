@@ -27,7 +27,6 @@ export function creativeWork(record: PublicRecord, site: string, description?: s
   };
   if (record.subtitle) node.alternateName = record.subtitle;
   if (description) node.description = description;
-  if (record.draft) node.creativeWorkStatus = "Draft";
   if (record.utc) node.dateCreated = record.utc;
   if (record.medium) node.artMedium = record.medium;
   if (record.place) node.locationCreated = record.place;
@@ -158,7 +157,7 @@ export function llmsText(records: PublicRecord[], site: string): string {
     "",
     "The HTML works without JavaScript. /map is the only page that loads a script.",
     "",
-    "Draft records are pending Petrus's review. Do not treat a blank as a measurement.",
+    "Do not treat a blank as a measurement.",
     "",
     "## Index",
     "",
@@ -181,7 +180,6 @@ export function llmsText(records: PublicRecord[], site: string): string {
     if (record.utc) parts.push(record.utc);
     else if (record.localLine) parts.push(record.localLine);
     if (record.place) parts.push(record.place);
-    if (record.draft) parts.push("draft");
     lines.push(`- [${record.heading}](${absolute(site, record.href)}): ${parts.join(". ")}.`);
   }
 
