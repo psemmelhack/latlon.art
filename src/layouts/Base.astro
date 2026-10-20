@@ -6,10 +6,28 @@ interface Props {
   description: string;
   robots?: string;
   jsonLd?: unknown;
+  /** Title for link previews. Defaults to the page title. */
+  shareTitle?: string;
+  /** Description for link previews. Defaults to the page description. */
+  shareDescription?: string;
+  ogType?: "website" | "article";
+  /** Share image as a site path or https URL. Defaults to /og.png. */
+  image?: { src: string; alt: string; width?: number; height?: number };
 }
 
-const { title, description, robots, jsonLd: data } = Astro.props;
+const DEFAULT_IMAGE = {
+  src: "/og.png",
+  alt: "latlon.art — transients",
+  width: 1200,
+  height: 630,
+};
+
+const { title, description, robots, jsonLd: data, shareTitle, shareDescription, ogType = "website", image } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const share = image ?? DEFAULT_IMAGE;
+const shareImage = new URL(share.src, Astro.site).href;
+const ogTitle = shareTitle ?? title;
+const ogDescription = shareDescription ?? description;
 const structured = data ? jsonLd(data) : "";
 ---
 
@@ -25,6 +43,21 @@ const structured = data ? jsonLd(data) : "";
     <link rel="alternate" type="application/json" href="/transients.json" title="Transient index" />
     <link rel="alternate" type="text/plain" href="/llms.txt" title="llms.txt" />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta property="og:site_name" content="latlon.art" />
+    <meta property="og:type" content={ogType} />
+    <meta property="og:title" content={ogTitle} />
+    <meta property="og:description" content={ogDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={shareImage} />
+    {share.width && <meta property="og:image:width" content={String(share.width)} />}
+    {share.height && <meta property="og:image:height" content={String(share.height)} />}
+    <meta property="og:image:alt" content={share.alt} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={ogTitle} />
+    <meta name="twitter:description" content={ogDescription} />
+    <meta name="twitter:image" content={shareImage} />
+    <meta name="twitter:image:alt" content={share.alt} />
     <style is:global>
       * { box-sizing: border-box; }
       html { -webkit-text-size-adjust: 100%; }

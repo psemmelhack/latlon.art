@@ -25,6 +25,9 @@ const { Content } = await render(entry);
 const description = summarize(record, entry.body);
 const site = originOf(Astro.site);
 const onMap = record.lat != null && record.lon != null;
+const shareDescription =
+  [record.coordLine, record.localLine ?? record.utc].filter(Boolean).join(" · ") || description;
+const shareImage = record.images[0];
 ---
 
 <Base
@@ -32,6 +35,10 @@ const onMap = record.lat != null && record.lon != null;
   description={description}
   robots={record.draft ? "noindex" : undefined}
   jsonLd={recordGraph(record, site, description)}
+  shareTitle={record.heading}
+  shareDescription={shareDescription}
+  ogType="article"
+  image={shareImage}
 >
   <p><a href="/">latlon.art</a></p>
   <h1>{record.heading}</h1>
