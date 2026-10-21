@@ -1,0 +1,38 @@
+---
+import Base from "../layouts/Base.astro";
+import { originOf } from "../lib/archive.ts";
+
+const site = originOf(Astro.site);
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  "@id": `${site}/what`,
+  url: `${site}/what`,
+  name: "What",
+  isPartOf: { "@id": `${site}/#site` },
+};
+---
+
+<Base
+  title="What — latlon.art"
+  description="What a transient is, in theory and in practice."
+  robots="noindex"
+  jsonLd={jsonLd}
+>
+  <p><a href="/">latlon.art</a></p>
+  <h1>What</h1>
+  <p class="line">Transient: the most precise possible measurement of someone (or something) in space-time.</p>
+  <p class="prose">
+    In theory, a transient is every possible measurement of someone or something at one point in
+    spacetime: what any sensor could read, its physical makeup down to the count of its atoms, its
+    time, and its quantum, chemical and biological state. That set can never be fully measured. A
+    transient is only fully valid in the exact spacetime where it was made, so it stops being valid
+    the moment it is finished, because time moves forward. What is left is the space, plus any other
+    measurements that can be repeated here and now at that spot. In practice, a transient records what
+    can be measured: latitude, longitude, altitude and UTC time, written on a physical object, such as
+    a sign or a tag, and left at that spot. A transient is at home, and most authentic, where its
+    measurements still match its surroundings. Moved somewhere else, it still points back to where it
+    was made.
+  </p>
+  <p class="quiet apart"><a href="/">The transients.</a></p>
+</Base>
