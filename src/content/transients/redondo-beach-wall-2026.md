@@ -15,6 +15,6 @@ images:
     height: 1400
 ---
 
-Purple tape-pixel digits on an interior white wall. The coordinates are read from the wall: 33.834452, -118.383318.
+Purple tape-pixel digits on an interior white wall: 33.834452, -118.383318.
 
-The time is from Peter's message that it was finished at 11:45 AM PDT on October 22, 2026, which is 18:45 UTC. Altitude is not recorded.
+Finished at 11:45 AM PDT on October 22, 2026 (18:45 UTC). Altitude is not recorded.

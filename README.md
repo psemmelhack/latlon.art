@@ -1,12 +1,12 @@
 # latlon.art
 
-A static archive of transients by [Petrus](https://psem.me/).
+A static archive of transients by [Peter](https://psem.me/).
 
 A transient is a measurement in spacetime: latitude, longitude, altitude, and a UTC time. Those four together are the unique ID, the TID. The point does not happen twice. Notarism’s medium is spacetime.
 
 The site is a set of Markdown files. After `npm run build` it is static HTML in `dist/`, ready for Vercel or any other static host.
 
-The records in the repo are drafts (`draft: true`). No draft notice is shown on the pages; the flag only keeps them out of search indexes. They are taken from posts on psem.me. Empty fields were not in the source and were not invented. Coordinates that appear only in a photograph are copied from that photograph. Local times are not converted to UTC unless the offset is numeric, or Petrus has confirmed the conversion.
+The records in the repo are drafts (`draft: true`). No draft notice is shown on the pages; the flag only keeps them out of search indexes. They are taken from posts on psem.me. Empty fields were not in the source and were not invented. Coordinates that appear only in a photograph are copied from that photograph. Local times are not converted to UTC unless the offset is numeric, or Peter has confirmed the conversion.
 
 ## Run it locally
 
@@ -60,7 +60,7 @@ Every field except the body is optional. `draft` defaults to false and `hide_coo
 | --- | --- |
 | `title` | The name of the work. Omit it only if there is no name. `number` then supplies the heading. |
 | `number` | The series number, if it has one. The page says `Transient #21`. |
-| `draft` | `true` while Petrus has not signed off. |
+| `draft` | `true` while Peter has not signed off. |
 | `hide_coordinates` | `true` to keep latitude and longitude out of the built site. Use this for a person who was witnessed. Do not publish their name. |
 | `latitude`, `longitude` | Quoted signed decimals, latitude first. No N, S, E, W, and no degree sign. `41.045437` and `-72.352898`. Keep the decimals that were recorded: do not pad them. |
 | `altitude_m` | Meters, only if you have the number. Omit it when it is unknown. |
@@ -72,7 +72,7 @@ Every field except the body is optional. `draft` defaults to false and `hide_coo
 | `source` | An `https://` link, usually the post on psem.me. |
 | `images` | Optional. See below. |
 
-Do not add a `slug` field. Do not add a name, or coordinates, of someone Petrus witnessed.
+Do not add a `slug` field. Do not add a name, or coordinates, of someone Peter witnessed.
 
 `hide_coordinates: true` removes latitude and longitude from the HTML, the map, and the TID. The Markdown file still contains them if you wrote them there. If this repository is public, leave the numbers out of the file as well.
 
@@ -159,4 +159,4 @@ Any other static host can serve `dist/` the same way. Keep the map attribution v
 - No altitude is recorded for these four. Central Park’s screen shows a figure that might be altitude; the label cannot be read.
 - Meters are assumed when `altitude_m` is set. The page does not name a datum.
 - Photographs in `public/transients/` are copies of images already on psem.me, with camera metadata removed and neutral filenames.
-- No license is set. The footer links to psem.me until Petrus chooses one.
+- No license is set. The footer links to psem.me until Peter chooses one.

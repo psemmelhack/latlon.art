@@ -13,6 +13,6 @@ images:
     height: 1050
 ---
 
-A grid notebook headed TRANSIENT, written at 02:22:22 PM. Petrus confirmed the day as Tuesday, February 22, 2022, not February 2. ET that day was EST, UTC-5, so the instant is 2022-02-22T19:22:22Z.
+A grid notebook headed TRANSIENT, written at 02:22:22 PM. The day is Tuesday, February 22, 2022, not February 2. ET that day was EST, UTC-5, so the instant is 2022-02-22T19:22:22Z.
 
 Latitude, longitude, and altitude are not written in the post.

@@ -16,4 +16,4 @@ images:
 
 A small hand-lettered tag under a no-parking sign. The coordinates are read from the tag: 33.8344, -118.3832.
 
-The photo has no time or GPS data. The time is from Petrus's message that he had just put it up, about 2:46 PM PDT on October 20, 2026. It is approximate, so UTC is not recorded. Altitude is not recorded.
+Put up at about 2:46 PM PDT on October 20, 2026. The time is approximate, so UTC is not recorded. Altitude is not recorded.
