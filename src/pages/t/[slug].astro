@@ -151,10 +151,10 @@ const shareImage = record.images[0];
     (prev || next) && (
       <nav class="seq" aria-label="Transients in sequence">
         {prev && (
-          <a class="prev" href={prev.href} rel="prev" aria-label={`Previous: ${prev.heading}`} title={prev.heading}>&lt;</a>
+          <a class="prev" href={prev.href} rel="prev" aria-label={`Previous: ${prev.heading}`} title={prev.heading}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M15 18l-6-6 6-6" vector-effect="non-scaling-stroke" /></svg></a>
         )}
         {next && (
-          <a class="next" href={next.href} rel="next" aria-label={`Next: ${next.heading}`} title={next.heading}>&gt;</a>
+          <a class="next" href={next.href} rel="next" aria-label={`Next: ${next.heading}`} title={next.heading}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M9 18l6-6-6-6" vector-effect="non-scaling-stroke" /></svg></a>
         )}
       </nav>
     )
