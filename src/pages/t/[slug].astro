@@ -42,6 +42,21 @@ const shareImage = record.images[0];
 >
   <p class="back"><a href="/">latlon.art</a></p>
   <h1>{record.heading}</h1>
+  {
+    record.images.map((image) => (
+      <figure class="lead">
+        <img
+          src={image.src}
+          alt={image.alt}
+          width={image.width}
+          height={image.height}
+          loading="eager"
+          decoding="async"
+        />
+        {image.caption && <figcaption>{image.caption}</figcaption>}
+      </figure>
+    ))
+  }
   {record.subtitle && <p>{record.subtitle}</p>}
 
   <div class="block">
@@ -114,20 +129,5 @@ const shareImage = record.images[0];
         <Content />
       </div>
     )
-  }
-  {
-    record.images.map((image) => (
-      <figure>
-        <img
-          src={image.src}
-          alt={image.alt}
-          width={image.width}
-          height={image.height}
-          loading="lazy"
-          decoding="async"
-        />
-        {image.caption && <figcaption>{image.caption}</figcaption>}
-      </figure>
-    ))
   }
 </Base>
