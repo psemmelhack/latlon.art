@@ -13,6 +13,11 @@ images:
     caption: "The digits on the wall."
     width: 1400
     height: 1400
+  - src: /transients/redondo-beach-wall-2026-2.jpg
+    alt: "A wider view of the same empty room: a brick fireplace and a window on the left, the closed white door in the middle, and the purple tape digits on the wall to the right, above a wood floor."
+    caption: "The room."
+    width: 1400
+    height: 1400
 ---
 
 Purple tape-pixel digits on an interior white wall: 33.834452, -118.383318.
