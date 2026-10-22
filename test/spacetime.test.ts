@@ -3,6 +3,7 @@ import { readFileSync, readdirSync } from "node:fs";
 import test from "node:test";
 import { archiveDocument, llmsText } from "../src/lib/archive.ts";
 import { present } from "../src/lib/present.ts";
+import { byNewest, neighbors } from "../src/lib/sequence.ts";
 import {
   coordLine,
   parseLocalDay,
@@ -140,4 +141,16 @@ test("draft files match the published sources and stay unmarked as guesses", () 
   assert.match(layout, /ui-monospace, Menlo, Consolas/);
   assert.doesNotMatch(layout, /Silkscreen|graph paper|punch/);
   assert.doesNotMatch(sources, /class="punch"|class="sheet"/);
+});
+
+test("entry sequence follows the homepage order with no arrow past either end", () => {
+  const make = (id: string, utc?: string) =>
+    present(id, { draft: true, hideCoordinates: false, utc, images: [] });
+  const list = [make("undated"), make("old", "2021-03-14T18:26:14Z"), make("new", "2026-10-22T18:45:00Z")].sort(byNewest);
+  assert.deepEqual(list.map((r) => r.id), ["new", "old", "undated"]);
+  assert.equal(neighbors(list, "new").prev, null);
+  assert.equal(neighbors(list, "new").next?.id, "old");
+  assert.equal(neighbors(list, "old").prev?.id, "new");
+  assert.equal(neighbors(list, "old").next?.id, "undated");
+  assert.equal(neighbors(list, "undated").next, null);
 });

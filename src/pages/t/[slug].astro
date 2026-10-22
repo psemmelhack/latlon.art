@@ -4,21 +4,36 @@ import Base from "../../layouts/Base.astro";
 import { originOf, recordGraph } from "../../lib/archive.ts";
 import { summarize } from "../../lib/present.ts";
 import { loadRecords } from "../../lib/records.ts";
+import { neighbors } from "../../lib/sequence.ts";
 import type { PublicRecord } from "../../lib/types.ts";
 
 export async function getStaticPaths() {
   const records = await loadRecords();
-  return records.map((record) => ({
-    params: { slug: record.id },
-    props: { record },
-  }));
+  return records.map((record) => {
+    const { prev, next } = neighbors(records, record.id);
+    return {
+      params: { slug: record.id },
+      props: {
+        record,
+        prev: prev && { href: prev.href, heading: prev.heading },
+        next: next && { href: next.href, heading: next.heading },
+      },
+    };
+  });
+}
+
+interface Link {
+  href: string;
+  heading: string;
 }
 
 interface Props {
   record: PublicRecord;
+  prev: Link | null;
+  next: Link | null;
 }
 
-const { record } = Astro.props;
+const { record, prev, next } = Astro.props;
 const entry = await getEntry("transients", record.id);
 if (!entry) throw new Error(`Missing transient entry ${record.id}`);
 const { Content } = await render(entry);
@@ -40,6 +55,8 @@ const shareImage = record.images[0];
   ogType="article"
   image={shareImage}
 >
+  {prev && <link slot="head" rel="prev" href={prev.href} />}
+  {next && <link slot="head" rel="next" href={next.href} />}
   <p class="back"><a href="/">latlon.art</a></p>
   <h1>{record.heading}</h1>
   {
@@ -130,4 +147,26 @@ const shareImage = record.images[0];
       </div>
     )
   }
+  {
+    (prev || next) && (
+      <nav class="seq" aria-label="Transients in sequence">
+        {prev && (
+          <a class="prev" href={prev.href} rel="prev" aria-label={`Previous: ${prev.heading}`} title={prev.heading}>←</a>
+        )}
+        {next && (
+          <a class="next" href={next.href} rel="next" aria-label={`Next: ${next.heading}`} title={next.heading}>→</a>
+        )}
+      </nav>
+    )
+  }
+  <script is:inline>
+    document.addEventListener("keydown", (e) => {
+      if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+      const t = e.target;
+      if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+      const sel = { ArrowLeft: ".seq .prev", ArrowRight: ".seq .next" }[e.key];
+      const a = sel && document.querySelector(sel);
+      if (a) location.href = a.href;
+    });
+  </script>
 </Base>
