@@ -83,6 +83,7 @@ test("draft files match the published sources and stay unmarked as guesses", () 
     "creation-proofs-2.md",
     "paris-2023.md",
     "redondo-beach-2026.md",
+    "redondo-beach-wall-2026.md",
     "transient-21.md",
   ]);
 
@@ -112,6 +113,10 @@ test("draft files match the published sources and stay unmarked as guesses", () 
   assert.match(files["redondo-beach-2026.md"], /longitude:\s*"-118\.3832"/);
   assert.doesNotMatch(files["redondo-beach-2026.md"], /^utc:/m);
   assert.doesNotMatch(files["redondo-beach-2026.md"], /altitude_m:/);
+  assert.match(files["redondo-beach-wall-2026.md"], /latitude:\s*"33\.834452"/);
+  assert.match(files["redondo-beach-wall-2026.md"], /longitude:\s*"-118\.383318"/);
+  assert.match(files["redondo-beach-wall-2026.md"], /utc:\s*"2026-10-22T18:45:00Z"/);
+  assert.doesNotMatch(files["redondo-beach-wall-2026.md"], /altitude_m:/);
 
   const readme = readFileSync("README.md", "utf8");
   const sources = [

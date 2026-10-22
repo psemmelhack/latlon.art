@@ -123,6 +123,7 @@ images:
 | `central-park-2021.md` | `40.778451`, `-73.971842`. Screen time `2021-03-14T14:26:14-04:00`, UTC `2021-03-14T18:26:14Z`. Place from the Measurement post. Altitude not copied. |
 | `creation-proofs-2.md` | `2022-02-22T19:22:22Z`, confirmed. No coordinates. |
 | `redondo-beach-2026.md` | `33.8344`, `-118.3832`, read from the tag. Time from chat, about 2:46 PM PDT on 2026-10-20, so it is approximate and UTC is left out. No altitude. Photo had no EXIF time or GPS. |
+| `redondo-beach-wall-2026.md` | `33.834452`, `-118.383318`, read from the wall. Finished 11:45 AM PDT on 2026-10-22, from chat, so UTC `2026-10-22T18:45:00Z`. No altitude. Photo had no GPS; all metadata stripped. |
 
 Delete a draft, or set `draft: false`, when it has been reviewed. While every record is a draft, the home page is also kept out of search indexes.
 
