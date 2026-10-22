@@ -151,10 +151,10 @@ const shareImage = record.images[0];
     (prev || next) && (
       <nav class="seq" aria-label="Transients in sequence">
         {prev && (
-          <a class="prev" href={prev.href} rel="prev" aria-label={`Previous: ${prev.heading}`} title={prev.heading}>←</a>
+          <a class="prev" href={prev.href} rel="prev" aria-label={`Previous: ${prev.heading}`} title={prev.heading}>&lt;</a>
         )}
         {next && (
-          <a class="next" href={next.href} rel="next" aria-label={`Next: ${next.heading}`} title={next.heading}>→</a>
+          <a class="next" href={next.href} rel="next" aria-label={`Next: ${next.heading}`} title={next.heading}>&gt;</a>
         )}
       </nav>
     )
