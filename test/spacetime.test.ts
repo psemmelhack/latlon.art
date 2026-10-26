@@ -82,6 +82,7 @@ test("draft files match the published sources and stay unmarked as guesses", () 
   assert.deepEqual(Object.keys(files).sort(), [
     "central-park-2021.md",
     "creation-proofs-2.md",
+    "green-valley-2026-10-25.md",
     "paris-2023.md",
     "redondo-beach-2026.md",
     "redondo-beach-wall-2026.md",
@@ -118,6 +119,12 @@ test("draft files match the published sources and stay unmarked as guesses", () 
   assert.match(files["redondo-beach-wall-2026.md"], /longitude:\s*"-118\.383318"/);
   assert.match(files["redondo-beach-wall-2026.md"], /utc:\s*"2026-10-22T18:45:00Z"/);
   assert.doesNotMatch(files["redondo-beach-wall-2026.md"], /altitude_m:/);
+  assert.match(files["green-valley-2026-10-25.md"], /latitude:\s*"38\.244571"/);
+  assert.match(files["green-valley-2026-10-25.md"], /longitude:\s*"-122\.153994"/);
+  assert.match(files["green-valley-2026-10-25.md"], /altitude_m:\s*44/);
+  assert.match(files["green-valley-2026-10-25.md"], /utc:\s*"2026-10-25T17:29:34\.116Z"/);
+  assert.match(files["green-valley-2026-10-25.md"], /OCTOBER 25 2026 \/ 10:29AM PDT/);
+  assert.doesNotMatch(files["green-valley-2026-10-25.md"], /^timezone:/m);
 
   const readme = readFileSync("README.md", "utf8");
   const sources = [

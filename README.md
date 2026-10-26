@@ -122,6 +122,7 @@ images:
 | `paris-2023.md` | `48.856603`, `2.342002`. `SEPT 14 2023 07:31PM`. Paris. No zone, so no UTC. |
 | `central-park-2021.md` | `40.778451`, `-73.971842`. Screen time `2021-03-14T14:26:14-04:00`, UTC `2021-03-14T18:26:14Z`. Place from the Measurement post. Altitude not copied. |
 | `creation-proofs-2.md` | `2022-02-22T19:22:22Z`, confirmed. No coordinates. |
+| `green-valley-2026-10-25.md` | Moment. `38.244571`, `-122.153994`, altitude 44 m. Card time October 25, 2026, 10:29 am PDT. File UTC `2026-10-25T17:29:34.116Z`. |
 | `redondo-beach-2026.md` | `33.8344`, `-118.3832`, read from the tag. Time from chat, about 2:46 PM PDT on 2026-10-20, so it is approximate and UTC is left out. No altitude. Photo had no EXIF time or GPS. |
 | `redondo-beach-wall-2026.md` | `33.834452`, `-118.383318`, read from the wall. Finished 11:45 AM PDT on 2026-10-22, from chat, so UTC `2026-10-22T18:45:00Z`. No altitude. Photo had no GPS; all metadata stripped. |
 
